@@ -3,36 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Text File</title>
+    <title>Random Excel Row Viewer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
         }
-        #fileContent {
-            white-space: pre-wrap;
+        #output {
             background-color: #f4f4f4;
             padding: 20px;
             border: 1px solid #ccc;
             margin-top: 20px;
+            font-size: 20px;
         }
     </style>
+    <!-- Chèn thư viện xlsx.js ở đây -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 <body>
-    <h1>Text File Content</h1>
+    <h1>Random Excel Row Viewer</h1>
     <input type="file" id="fileInput" />
-    <div id="fileContent"></div>
+    <div id="output">Please upload an Excel file.</div>
 
+    <!-- Đặt mã JavaScript ngay trước thẻ đóng body -->
     <script>
+        let data = [];
+        let intervalId = null;
+
+        // Function to read the Excel file
         document.getElementById('fileInput').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('fileContent').textContent = e.target.result;
+                    const dataArray = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(dataArray, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    data = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+                    startDisplayingRows();
                 };
-                reader.readAsText(file);
+                reader.readAsArrayBuffer(file);
             }
         });
-    </script>
-</body>
-</html>
+
+        // Function to start displaying random rows
+        function startDisplayingRows() {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            intervalId = setInterval(displayRandomRow, 3000);
+        }
+
+        // Function to display a random row from the Excel data
+        function displayRandomRow() {
+            if (data.length === 0) {
+                document.getElementById('output
