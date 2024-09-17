@@ -16,7 +16,7 @@
             font-size: 20px;
         }
     </style>
-    <!-- Chèn thư viện xlsx.js ở đây -->
+    <!-- Thêm thư viện xlsx.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -24,28 +24,37 @@
     <input type="file" id="fileInput" />
     <div id="output">Please upload an Excel file.</div>
 
-    <!-- Đặt mã JavaScript ngay trước thẻ đóng body -->
+    <!-- Đoạn script chính -->
     <script>
         let data = [];
         let intervalId = null;
 
-        // Function to read the Excel file
+        // Sự kiện khi chọn file
         document.getElementById('fileInput').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const dataArray = new Uint8Array(e.target.result);
-                    const workbook = XLSX.read(dataArray, { type: 'array' });
-                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                    data = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-                    startDisplayingRows();
+                    try {
+                        const dataArray = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(dataArray, { type: 'array' });
+                        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                        data = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+                        
+                        if (data.length === 0) {
+                            document.getElementById('output').innerText = 'The file is empty!';
+                        } else {
+                            startDisplayingRows();
+                        }
+                    } catch (error) {
+                        document.getElementById('output').innerText = 'Error reading the file. Please check the format.';
+                    }
                 };
                 reader.readAsArrayBuffer(file);
             }
         });
 
-        // Function to start displaying random rows
+        // Hàm bắt đầu hiển thị dòng
         function startDisplayingRows() {
             if (intervalId) {
                 clearInterval(intervalId);
@@ -53,7 +62,7 @@
             intervalId = setInterval(displayRandomRow, 3000);
         }
 
-        // Function to display a random row from the Excel data
+        // Hàm hiển thị một dòng ngẫu nhiên
         function displayRandomRow() {
             if (data.length === 0) {
                 document.getElementById('output').innerText = 'All rows displayed!';
@@ -61,18 +70,18 @@
                 return;
             }
 
-            // Select a random row
+            // Chọn dòng ngẫu nhiên
             const randomIndex = Math.floor(Math.random() * data.length);
             const row = data[randomIndex];
 
-            // Check if the row contains at least 2 columns
-            if (row.length >= 2) {
+            // Hiển thị dòng chỉ khi có ít nhất 2 cột
+            if (row && row.length >= 2) {
                 document.getElementById('output').innerText = `Column 1: ${row[0]} | Column 2: ${row[1]}`;
             } else {
                 document.getElementById('output').innerText = 'Invalid row format';
             }
 
-            // Remove the row from the data array
+            // Xóa dòng đã hiển thị khỏi danh sách
             data.splice(randomIndex, 1);
         }
     </script>
