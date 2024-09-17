@@ -56,4 +56,25 @@
         // Function to display a random row from the Excel data
         function displayRandomRow() {
             if (data.length === 0) {
-                document.getElementById('output
+                document.getElementById('output').innerText = 'All rows displayed!';
+                clearInterval(intervalId);
+                return;
+            }
+
+            // Select a random row
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const row = data[randomIndex];
+
+            // Check if the row contains at least 2 columns
+            if (row.length >= 2) {
+                document.getElementById('output').innerText = `Column 1: ${row[0]} | Column 2: ${row[1]}`;
+            } else {
+                document.getElementById('output').innerText = 'Invalid row format';
+            }
+
+            // Remove the row from the data array
+            data.splice(randomIndex, 1);
+        }
+    </script>
+</body>
+</html>
