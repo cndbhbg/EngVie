@@ -78,7 +78,7 @@
             const randomIndex = Math.floor(Math.random() * data.length);
             const row = data[randomIndex];
 
-            if (row && row.length >= 3) { // Ensure there are at least 3 columns
+            if (row && row.length >= 2) { // Ensure there are at least 3 columns
                 document.getElementById('output').innerHTML = `
                     <div class="line1">${row[0]}</div>
                     <div class="pronunciation">..</div>
