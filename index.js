@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.static('public')); // Thư mục chứa index.html
 
 // Đọc thông tin từ tệp credentials.js
-const credentials = JSON.parse(fs.readFileSync('credentials.js', 'utf8'));
+const credentials = JSON.parse(fs.readFileSync('credentials.json', 'utf8'));
 const privateKey = credentials.private_key.replace(/\\n/g, '\n');
 const clientEmail = credentials.client_email;
 
