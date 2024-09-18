@@ -20,7 +20,11 @@
         }
         .line2 {
             font-size: 5vw;
-            color: #ff0000; /* red color */
+            color: #ff0000; /* Red color */
+        }
+        .pronunciation {
+            font-size: 3vw;
+            color: #666; /* Gray color for pronunciation */
         }
     </style>
 </head>
@@ -74,10 +78,11 @@
             const randomIndex = Math.floor(Math.random() * data.length);
             const row = data[randomIndex];
 
-            if (row && row.length >= 2) {
+            if (row && row.length >= 3) { // Ensure there are at least 3 columns
                 document.getElementById('output').innerHTML = `
                     <div class="line1">${row[0]}</div>
-                    <div> khoảng cách dòng</div>
+                    <div class="pronunciation">${row[2]}</div>
+                    <div>  </div>
                     <div class="line2">${row[1]}</div>
                 `;
             } else {
