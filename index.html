@@ -13,7 +13,7 @@
         #output {
             background-color: #ffffff;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ffffff;
             margin-top: 20px;
         }
         .line1 {
@@ -21,11 +21,12 @@
             color: #1a73e8; /* Blue color */
         }
         .line2 {
-            font-size: 4vw;
+            font-size: 3vw;
             color: #ff0000; /* Red color */
         }
         .pronunciation {
-            font-size: 3vw;
+            font-size: 2vw;
+            height: 10vh;
             color: #666; /* Gray color for pronunciation */
         }
         .button-container {
@@ -53,7 +54,6 @@
     </div>
 
     <script>
-        // Replace with your Google Sheet ID and API Key
         const sheetId = '1p9p8h9v-mQLL4MHm4PC1ofDFlUFxCIm4qm82_h_Vl4s';
         const apiKey = 'AIzaSyCv1IOw4YfndQUmA6YbfPU6ioMuA796xIw';
 
@@ -61,7 +61,6 @@
         let intervalId = null;
         let currentRowIndex = null;
 
-        // Fetch data from Google Sheets API
         function fetchSheetData() {
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
 
@@ -115,7 +114,6 @@
                 return;
             }
 
-            // Make a request to the server to delete the row
             fetch('/delete-row', {
                 method: 'POST',
                 headers: {
@@ -142,10 +140,7 @@
             });
         }
 
-        // Set up the event listener for the delete button
         document.getElementById('deleteButton').addEventListener('click', deleteCurrentRow);
-
-        // Automatically load data when the page loads
         document.addEventListener('DOMContentLoaded', fetchSheetData);
     </script>
 </body>
