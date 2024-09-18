@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Google Sheets Row Viewer</title>
+    <title>Các từ vựng English phổ biến</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +13,14 @@
             padding: 20px;
             border: 1px solid #ccc;
             margin-top: 20px;
-            font-size: 20px;
+        }
+        .line1 {
+            font-size: 10vw;
+            color: #1a73e8; /* Blue color */
+        }
+        .line2 {
+            font-size: 5vw;
+            color: #ff5722; /* Orange color */
         }
     </style>
 </head>
@@ -68,7 +75,10 @@
             const row = data[randomIndex];
 
             if (row && row.length >= 2) {
-                document.getElementById('output').innerText = `: ${row[0]} | : ${row[1]}`;
+                document.getElementById('output').innerHTML = `
+                    <div class="line1">${row[0]}</div>
+                    <div class="line2">${row[1]}</div>
+                `;
             } else {
                 document.getElementById('output').innerText = 'Invalid row format';
             }
