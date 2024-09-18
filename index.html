@@ -115,13 +115,31 @@
                 return;
             }
 
-            data.splice(currentRowIndex, 1);
-            if (data.length === 0) {
-                document.getElementById('output').innerText = 'No more data available.';
-                clearInterval(intervalId);
-            } else {
-                displayRandomRow();
-            }
+            // Make a request to the server to delete the row
+            fetch('/delete-row', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ rowIndex: currentRowIndex }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    data.splice(currentRowIndex, 1);
+                    if (data.length === 0) {
+                        document.getElementById('output').innerText = 'No more data available.';
+                        clearInterval(intervalId);
+                    } else {
+                        displayRandomRow();
+                    }
+                } else {
+                    document.getElementById('output').innerText = 'Failed to delete row.';
+                }
+            })
+            .catch(error => {
+                document.getElementById('output').innerText = 'Error deleting row.';
+            });
         }
 
         // Set up the event listener for the delete button
