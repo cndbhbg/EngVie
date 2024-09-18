@@ -25,6 +25,7 @@
         .pronunciation {
             font-size: 3vw;
             color: #666; /* Gray color for pronunciation */
+             height: 50px;
         }
     </style>
 </head>
@@ -80,7 +81,7 @@
             if (row && row.length >= 2) {
                 document.getElementById('output').innerHTML = `
                     <div class="line1">${row[0]}</div>
-                    <div class="pronunciation">..</div>
+                    <div class="pronunciation"></div>
                     <div class="line2">${row[1]}</div>
                 `;
             } else {
