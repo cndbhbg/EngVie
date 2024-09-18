@@ -27,13 +27,30 @@
         .pronunciation {
             font-size: 3vw;
             color: #666; /* Gray color for pronunciation */
-             height: 150px;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .delete-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #d32f2f; /* Red color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: #b71c1c; /* Darker red on hover */
         }
     </style>
 </head>
 <body>
     <h1>Từ vựng Eng - Viet</h1>
     <div id="output">Loading data from Google Sheets...</div>
+    <div class="button-container">
+        <button class="delete-button" id="deleteButton">Delete Current Row</button>
+    </div>
 
     <script>
         // Replace with your Google Sheet ID and API Key
@@ -42,6 +59,7 @@
 
         let data = [];
         let intervalId = null;
+        let currentRowIndex = null;
 
         // Fetch data from Google Sheets API
         function fetchSheetData() {
@@ -77,19 +95,37 @@
                 return;
             }
 
-            const randomIndex = Math.floor(Math.random() * data.length);
-            const row = data[randomIndex];
+            currentRowIndex = Math.floor(Math.random() * data.length);
+            const row = data[currentRowIndex];
 
             if (row && row.length >= 2) {
                 document.getElementById('output').innerHTML = `
                     <div class="line1">${row[0]}</div>
-                    <div class="pronunciation"></div>
+                    <div class="pronunciation">${row[2] || ''}</div>
                     <div class="line2">${row[1]}</div>
                 `;
             } else {
                 document.getElementById('output').innerText = 'Invalid row format';
             }
         }
+
+        function deleteCurrentRow() {
+            if (currentRowIndex === null || currentRowIndex >= data.length) {
+                document.getElementById('output').innerText = 'No row to delete.';
+                return;
+            }
+
+            data.splice(currentRowIndex, 1);
+            if (data.length === 0) {
+                document.getElementById('output').innerText = 'No more data available.';
+                clearInterval(intervalId);
+            } else {
+                displayRandomRow();
+            }
+        }
+
+        // Set up the event listener for the delete button
+        document.getElementById('deleteButton').addEventListener('click', deleteCurrentRow);
 
         // Automatically load data when the page loads
         document.addEventListener('DOMContentLoaded', fetchSheetData);
