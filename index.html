@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
         }
         #output {
-            background-color: #f4f4f4;
+            background-color: #ffffff;
             padding: 20px;
             border: 1px solid #ccc;
             margin-top: 20px;
@@ -20,12 +20,12 @@
         }
         .line2 {
             font-size: 5vw;
-            color: #ff5722; /* Orange color */
+            color: #ff0000; /* red color */
         }
     </style>
 </head>
 <body>
-    <h1>Random Google Sheets Row Viewer</h1>
+    <h1>Từ vựng Eng - Viet</h1>
     <div id="output">Loading data from Google Sheets...</div>
 
     <!-- Đoạn script chính -->
@@ -77,6 +77,7 @@
             if (row && row.length >= 2) {
                 document.getElementById('output').innerHTML = `
                     <div class="line1">${row[0]}</div>
+                    <div> khoảng cách dòng</div>
                     <div class="line2">${row[1]}</div>
                 `;
             } else {
