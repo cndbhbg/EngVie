@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Các từ vựng English</title>
+    <title>Các từ vựng English phổ biến</title>
     <link rel="icon" href="5526531.png" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="5526531.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
@@ -58,7 +58,6 @@
 </head>
 <body>
     <h1>Từ vựng Eng - Viet</h1>
-    <input type="file" id="fileInput" accept=".xlsx" />
     <div id="output">Loading data from Excel...</div>
     <div class="input-container">
         <input type="text" id="engInput" placeholder="Eng" />
@@ -70,38 +69,34 @@
     </div>
 
     <script>
-        let workbook;
-        let currentRowIndex = null;
+        const excelFileUrl = 'https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/ev.xlsx'; // Đổi USERNAME và REPOSITORY cho đúng
         let data = [];
+        let currentRowIndex = null;
 
-        document.getElementById('fileInput').addEventListener('change', handleFile);
+        document.addEventListener('DOMContentLoaded', fetchSheetData);
         document.getElementById('deleteButton').addEventListener('click', deleteCurrentRow);
         document.getElementById('saveButton').addEventListener('click', saveNewRow);
 
-        function handleFile(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            
-            reader.onload = (e) => {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                const sheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[sheetName];
-                data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                updateDisplay(data);
-            };
-
-            reader.readAsArrayBuffer(file);
+        function fetchSheetData() {
+            fetch(excelFileUrl)
+                .then(response => response.arrayBuffer())
+                .then(dataBuffer => {
+                    const workbook = XLSX.read(dataBuffer, { type: 'array' });
+                    const sheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[sheetName];
+                    data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                    updateDisplay();
+                })
+                .catch(error => {
+                    document.getElementById('output').innerText = 'Error fetching the Excel file.';
+                });
         }
 
-        function updateDisplay(sheetData) {
-            data = sheetData;
-
+        function updateDisplay() {
             if (data.length === 0) {
                 document.getElementById('output').innerText = 'The sheet is empty!';
                 return;
             }
-
             displayRandomRow();
         }
 
