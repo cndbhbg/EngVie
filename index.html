@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Các từ vựng English phổ biến</title>
-    <link rel="icon" href="5526531.png" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="5526531.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,19 +13,6 @@
             padding: 20px;
             border: 1px solid #ffffff;
             margin-top: 20px;
-        }
-        .line1 {
-            font-size: 13vw;
-            color: #1a73e8; /* Blue color */
-        }
-        .line2 {
-            font-size: 3vw;
-            color: #ff0000; /* Red color */
-        }
-        .pronunciation {
-            font-size: 2vw;
-            height: 10vh;
-            color: #666; /* Gray color for pronunciation */
         }
         .button-container {
             margin-top: 20px;
@@ -58,7 +42,7 @@
 </head>
 <body>
     <h1>Từ vựng Eng - Viet</h1>
-    <div id="output">Loading data from Excel...</div>
+    <div id="output">Loading data from text file...</div>
     <div class="input-container">
         <input type="text" id="engInput" placeholder="Eng" />
         <input type="text" id="vietInput" placeholder="Viet" />
@@ -69,37 +53,32 @@
     </div>
 
     <script>
-        const excelFileUrl = 'https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/ev.xlsx'; // Đổi USERNAME và REPOSITORY cho đúng
         let data = [];
         let currentRowIndex = null;
 
-        document.addEventListener('DOMContentLoaded', fetchSheetData);
-        document.getElementById('deleteButton').addEventListener('click', deleteCurrentRow);
-        document.getElementById('saveButton').addEventListener('click', saveNewRow);
-
-        function fetchSheetData() {
-            fetch(excelFileUrl)
-                .then(response => response.arrayBuffer())
-                .then(dataBuffer => {
-                    const workbook = XLSX.read(dataBuffer, { type: 'array' });
-                    const sheetName = workbook.SheetNames[0];
-                    const worksheet = workbook.Sheets[sheetName];
-                    data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        // Hàm để đọc file text
+        function fetchTextData() {
+            fetch('ev.txt')
+                .then(response => response.text())
+                .then(text => {
+                    data = text.split('\n').map(line => line.split(','));
                     updateDisplay();
                 })
                 .catch(error => {
-                    document.getElementById('output').innerText = 'Error fetching the Excel file.';
+                    document.getElementById('output').innerText = 'Error fetching the text file.';
                 });
         }
 
+        // Hàm để hiển thị dữ liệu
         function updateDisplay() {
             if (data.length === 0) {
-                document.getElementById('output').innerText = 'The sheet is empty!';
+                document.getElementById('output').innerText = 'The file is empty!';
                 return;
             }
             displayRandomRow();
         }
 
+        // Hàm để hiển thị một dòng ngẫu nhiên
         function displayRandomRow() {
             if (data.length === 0) return;
 
@@ -108,13 +87,13 @@
 
             if (row && row.length >= 2) {
                 document.getElementById('output').innerHTML = `
-                    <div class="line1">${row[0]}</div>
-                    <div class="pronunciation">${row[2] || ''}</div>
-                    <div class="line2">${row[1]}</div>
+                    <div>${row[0]}</div>
+                    <div>${row[1]}</div>
                 `;
             }
         }
 
+        // Hàm để xóa dòng hiện tại
         function deleteCurrentRow() {
             if (currentRowIndex === null || currentRowIndex >= data.length) {
                 document.getElementById('output').innerText = 'No row to delete.';
@@ -123,8 +102,10 @@
 
             data.splice(currentRowIndex, 1);
             displayRandomRow();
+            saveToFile(); // Ghi lại vào file sau khi xóa
         }
 
+        // Hàm để lưu dữ liệu mới
         function saveNewRow() {
             const engValue = document.getElementById('engInput').value;
             const vietValue = document.getElementById('vietInput').value;
@@ -134,10 +115,26 @@
                 document.getElementById('engInput').value = '';
                 document.getElementById('vietInput').value = '';
                 alert('New entry saved!');
+                saveToFile(); // Ghi lại vào file sau khi thêm
             } else {
                 alert('Please fill in both fields.');
             }
         }
+
+        // Hàm để ghi dữ liệu vào file (chỉ có thể thực hiện với backend)
+        function saveToFile() {
+            const blob = new Blob([data.map(row => row.join(',')).join('\n')], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchTextData);
+        document.getElementById('deleteButton').addEventListener('click', deleteCurrentRow);
+        document.getElementById('saveButton').addEventListener('click', saveNewRow);
     </script>
 </body>
 </html>
