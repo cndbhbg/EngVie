@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Các từ vựng English phổ biến</title>
+    <title>Các từ vựng English</title>
     <link rel="icon" href="5526531.png" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="5526531.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,67 +33,80 @@
         .button-container {
             margin-top: 20px;
         }
-        .delete-button {
+        .delete-button, .save-button {
             padding: 10px 20px;
             font-size: 16px;
             color: #fff;
-            background-color: #d32f2f; /* Red color */
+            background-color: #1976d2; /* Blue color */
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        .delete-button:hover {
-            background-color: #b71c1c; /* Darker red on hover */
+        .delete-button:hover, .save-button:hover {
+            background-color: #115293; /* Darker blue on hover */
+        }
+        .input-container {
+            margin-top: 20px;
+        }
+        input {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <h1>Từ vựng Eng - Viet</h1>
-    <div id="output">Loading data from Google Sheets...</div>
+    <input type="file" id="fileInput" accept=".xlsx" />
+    <div id="output">Loading data from Excel...</div>
+    <div class="input-container">
+        <input type="text" id="engInput" placeholder="Eng" />
+        <input type="text" id="vietInput" placeholder="Viet" />
+        <button class="save-button" id="saveButton">Save</button>
+    </div>
     <div class="button-container">
         <button class="delete-button" id="deleteButton">Delete Current Row</button>
     </div>
 
     <script>
-        const sheetId = '1p9p8h9v-mQLL4MHm4PC1ofDFlUFxCIm4qm82_h_Vl4s';
-        const apiKey = 'AIzaSyCv1IOw4YfndQUmA6YbfPU6ioMuA796xIw';
-
-        let data = [];
-        let intervalId = null;
+        let workbook;
         let currentRowIndex = null;
+        let data = [];
 
-        function fetchSheetData() {
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
+        document.getElementById('fileInput').addEventListener('change', handleFile);
+        document.getElementById('deleteButton').addEventListener('click', deleteCurrentRow);
+        document.getElementById('saveButton').addEventListener('click', saveNewRow);
 
-            fetch(url)
-                .then(response => response.json())
-                .then(dataJson => {
-                    data = dataJson.values;
+        function handleFile(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                updateDisplay(data);
+            };
 
-                    if (data.length === 0) {
-                        document.getElementById('output').innerText = 'The sheet is empty!';
-                    } else {
-                        startDisplayingRows();
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('output').innerText = 'Error fetching the sheet. Please check the Sheet ID and API Key.';
-                });
+            reader.readAsArrayBuffer(file);
         }
 
-        function startDisplayingRows() {
-            if (intervalId) {
-                clearInterval(intervalId);
+        function updateDisplay(sheetData) {
+            data = sheetData;
+
+            if (data.length === 0) {
+                document.getElementById('output').innerText = 'The sheet is empty!';
+                return;
             }
-            intervalId = setInterval(displayRandomRow, 3000);
+
+            displayRandomRow();
         }
 
         function displayRandomRow() {
-            if (data.length === 0) {
-                document.getElementById('output').innerText = 'No data available.';
-                clearInterval(intervalId);
-                return;
-            }
+            if (data.length === 0) return;
 
             currentRowIndex = Math.floor(Math.random() * data.length);
             const row = data[currentRowIndex];
@@ -103,8 +117,6 @@
                     <div class="pronunciation">${row[2] || ''}</div>
                     <div class="line2">${row[1]}</div>
                 `;
-            } else {
-                document.getElementById('output').innerText = 'Invalid row format';
             }
         }
 
@@ -114,34 +126,23 @@
                 return;
             }
 
-            fetch('/delete-row', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ rowIndex: currentRowIndex }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    data.splice(currentRowIndex, 1);
-                    if (data.length === 0) {
-                        document.getElementById('output').innerText = 'No more data available.';
-                        clearInterval(intervalId);
-                    } else {
-                        displayRandomRow();
-                    }
-                } else {
-                    document.getElementById('output').innerText = 'Failed to delete row.';
-                }
-            })
-            .catch(error => {
-                document.getElementById('output').innerText = 'Error deleting row.';
-            });
+            data.splice(currentRowIndex, 1);
+            displayRandomRow();
         }
 
-        document.getElementById('deleteButton').addEventListener('click', deleteCurrentRow);
-        document.addEventListener('DOMContentLoaded', fetchSheetData);
+        function saveNewRow() {
+            const engValue = document.getElementById('engInput').value;
+            const vietValue = document.getElementById('vietInput').value;
+
+            if (engValue && vietValue) {
+                data.push([engValue, vietValue]);
+                document.getElementById('engInput').value = '';
+                document.getElementById('vietInput').value = '';
+                alert('New entry saved!');
+            } else {
+                alert('Please fill in both fields.');
+            }
+        }
     </script>
 </body>
 </html>
