@@ -1,0 +1,963 @@
+Able	Có năng lực, có tài
+Activities	Hoạt động
+Bear	Mang, cầm, vác, đeo, ôm
+Blow	Nở hoa; sự nở hoa
+Bows	Nơ
+Broad	Rộng rãi
+Cap	Mũ lưỡi trai
+Comprehension	Sự hiểu biết
+Consider	Cân nhắc, xem xét; để ý, quan tâm, lưu ý đến
+Consonant	(âm nhạc) thuận tai, êm ái, du dương
+Consolation	Sự an ủi
+Continent	Lục địa, đại lục (lục địa Bắc Mỹ)
+Contrary	Trái ngược
+Contribute	Đóng góp
+Deed	Việc làm, chứng thư
+Depend	Phụ thuộc, tuỳ thuộc, tuỳ thuộc
+Desire	Sự mong muốn, khao khát
+Determine	Xác định, định rõ; quyết định
+Differ	Khác, không giống
+Discuss	Thảo luận, tranh luận
+Distant	Xa, cách, xa cách
+Doubt	Nghi ngờ
+Element	Yếu tố, nguyên tố
+Equate	Làm cân bằng, san bằng
+Excite	Kích thích, kích động
+Expect	Chờ đợi, mong ngóng; liệu trước
+Experience	Kinh nghiệm; trải qua, nếm mùi
+Experiment	Cuộc thí nghiệm; thí nghiệm
+Favor	Thiện ý; sự quý mến
+Fell	Da lông (của thú vật)
+Felt	Nỉ, phớt
+Fig	(thực vật học) quả sung; quả vả
+Figure	Hình dáng, nhân vật; hình dung, miêu tả
+Gather	Tập hợp; hái, lượm, thu thập
+General	Chung, chung chung; tổng
+Gentle	Hiền lành, dịu dàng, nhẹ nhàng
+Govern	Cầm quyền, cai trị
+Grade	Cấp
+Improve	Cải thiện
+Indicate	Chỉ, cho biết; biểu thị, trình bày ngắn gọn
+Innovation	Đổi mới
+Insect	Sâu bọ, côn trùng
+Instant	Lúc, chốc lát
+Invent	Phát minh, sáng chế
+Issued	Ban hành
+Locomotive	Đầu tầu
+Mass	Khối, khối lượng; quần chúng, đại chúng
+Matter	Chất, vật chất; có ý nghĩa, có tính chất quan trọng
+Meant	Có nghĩa là
+Meant	Khoảng giữa, trung độ, trung gian, trung dung
+Mention	Đề cập đến
+Might	Có thể, có lẽ
+Molecule	(hoá học) phân tử
+Mount	Leo, trèo; núi
+Nor	Cũng không
+Observe	Quan sát, theo dõi
+Occur	Xảy ra, xảy đến, xuất hiện
+Operate	Hoạt động, điều khiển
+Opposite	Đối nhau, ngược nhau; trước mặt, đối diện; điều trái ngược
+Particular	Riêng biệt, cá biệt
+Period	Kỳ, thời kỳ, thời gian; thời đại
+Person	Con người, người
+Pitty	Đáng tiếc
+Plain	Ngay thẳng, đơn giản, chất phác
+Plural	Ở số nhiều, (thuộc) số nhiều
+Populate	Ở, cư trú (một vùng)
+Probable	Có thể, có khả năng
+Proper	Đúng, thích đáng, thích hợp
+Property	Tài sản, của cải; đất đai, nhà cửa, bất động sản
+Prove	Chứng tỏ, chứng minh
+Provide	Chuẩn bị đầy đủ, dự phòng; cung cấp, chu cấp
+Phrase	Câu; thành ngữ, cụm từ
+Quart	Góc tư galông, lít Anh (bằng 1, 135 lít)
+Quite	Hoàn toàn, hầu hết
+Quotient	(toán học) số thương
+Raise	Nâng lên, đưa lên, ngẩng lên
+Reach	Đến, đi đến, tới
+Represent	Miêu tả, hình dung; đại diện, thay mặt
+Revolution	Cuộc cách mạng
+Rise	Sự lên, sự tăng lương, thăng cấp; dậy, đứng lên, mọc (mặt trời), thành đạt
+Rub	Xoa
+Seminar	Hội thảo
+Sense	Giác quan, tri giác, cảm giác
+Sentence	Câu
+Serve	Phục vụ, phụng sự
+Settle	Giải quyết, dàn xếp, hòa giải, đặt, bố trí
+Shall	Dự đoán tương lai: sẽ
+Shore	Bờ (biển, hồ lớn), bờ biển
+Should	Nên
+Shout	Hò hét, reo hò; sự la hét, sự hò reo
+Sight	Cảnh đẹp; sự nhìn
+Significant	Có ý nghĩa
+Soil	Đất trồng; vết bẩn
+Solution	Sự giải quyết, giải pháp
+Somehow	Bằng cách nào đó
+Spot	Dấu, đốm, vết
+Spread	Trải, căng ra, bày ra; truyền bá
+Stead	Có ích cho ai, có lợi cho ai; sẵn sàng giúp đỡ ai
+Steam	Hơi nước
+Stood	Sự dừng lại, sự đứng lại
+Substance	Chất liệu; bản chất; nội dung
+Such	Như thế, như vậy, như là
+Syllable	Âm tiết
+Tail	Đuôi, đoạn cuối
+Term	Giới hạn, kỳ hạn, khóa, kỳ học
+Though	Dù, dù cho, mặc dù; mặc dù, tuy nhiên, tuy vậy
+Thought	Sự suy nghĩ, khả năng suy nghĩ; ý nghĩ, tư tưởng, tư duy
+Through	Qua, xuyên qua
+Throw	Ném, vứt, quăng
+Thus	Như vậy, như thế, do đó
+Triangle	Hình tam giác
+Vary	Thay đổi, làm cho khác nhau, biến đổi
+Volunteer	Tình nguyện viên
+Vowel	Nguyên âm
+Whether	Có..không; có… chăng; không biết có.. không
+Whole	Bình an vô sự, không suy suyển, không hư hỏng; toàn bộ, tất cả, toàn thể
+Whose	Của ai
+Wire	Dây (kim loại)
+Wise	Khôn ngoan
+Yet	Còn, hãy còn, còn nữa
+Efficiently	Hiệu quả
+Optimize	Tối ưu hóa
+Scalable	Có thể mở rộng
+Reliable	Đáng tin cậy
+Gifted	Có tài, thiên tài, năng khiếu
+Adjacent	Liền kề
+Cottage	Ngôi nhà tranh
+Violently	Dữ dội
+Generous	Hào phóng
+Anxiously	Một cách lo lắng
+Cab	Taxi
+Adventure	Cuộc phiêu lưu
+Asylum	Tị nạn, nhà thương điên
+Greet	Chào mừng
+Clue	Manh mối
+Suffer	Chịu đựng
+Nerves	Thần kinh
+Nervousness	Sự lo lắng
+Opinion	Ý kiến
+Honest	Trung thực
+Grave	Ngôi mộ
+Fault	Lỗi
+Actually	Thực sự
+Strive	Phấn đấu
+Surgery	Phẫu thuật
+Attitude	Thái độ
+Bride	Cô dâu
+Ruin	Sự đổ nat
+Dizzy	Chóng mặt
+Mistress	Bà chủ
+Intuition	Trực giác
+Sensation	Cảm giác
+Hurried	Gấp rút
+Trembled	Run rẩy
+Pale	Tái nhợt
+Bald	Khô khan, hói
+Develop	Phát triển
+Proposed	Đề xuất
+Criminal	Tội phạm
+Afford	Đủ khả năng
+Fever	Sốt (ốm)
+Wealth	Sự giầu có
+Veranda	Hiên nhà
+Sore	Đau nhức
+Provide	Cung cấp
+Expect	Trông chờ
+Harm	Làm hại
+Remind	Nhắc lại
+Scholarship	Học bổng
+Demand	Yêu cầu
+Ashamed	Xaấu hổ
+Remain	Duy trì
+Fortune	Vận may
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
