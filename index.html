@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Excel Row Viewer</title>
+    <title>Random Google Sheets Row Viewer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,41 +20,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 <body>
-    <h1>Random Excel Row Viewer</h1>
-    <input type="file" id="fileInput" />
-    <div id="output">Please upload an Excel file.</div>
+    <h1>Random Google Sheets Row Viewer</h1>
+    <input type="text" id="sheetId" placeholder="Enter Google Sheet ID" />
+    <input type="text" id="apiKey" placeholder="Enter API Key" />
+    <button id="loadButton">Load Sheet</button>
+    <div id="output">Please enter Google Sheet ID and API Key, then click Load Sheet.</div>
 
     <!-- Đoạn script chính -->
     <script>
         let data = [];
         let intervalId = null;
 
-        // Sự kiện khi chọn file
-        document.getElementById('fileInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const dataArray = new Uint8Array(e.target.result);
-                        const workbook = XLSX.read(dataArray, { type: 'array' });
-                        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                        data = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-                        
-                        if (data.length === 0) {
-                            document.getElementById('output').innerText = 'The file is empty!';
-                        } else {
-                            startDisplayingRows();
-                        }
-                    } catch (error) {
-                        document.getElementById('output').innerText = 'Error reading the file. Please check the format.';
-                    }
-                };
-                reader.readAsArrayBuffer(file);
+        document.getElementById('loadButton').addEventListener('click', function() {
+            const sheetId = document.getElementById('sheetId').value;
+            const apiKey = document.getElementById('apiKey').value;
+
+            if (sheetId && apiKey) {
+                fetchSheetData(sheetId, apiKey);
+            } else {
+                document.getElementById('output').innerText = 'Please provide both Sheet ID and API Key.';
             }
         });
 
-        // Hàm bắt đầu hiển thị dòng
+        function fetchSheetData(sheetId, apiKey) {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(dataJson => {
+                    data = dataJson.values;
+
+                    if (data.length === 0) {
+                        document.getElementById('output').innerText = 'The sheet is empty!';
+                    } else {
+                        startDisplayingRows();
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('output').innerText = 'Error fetching the sheet. Please check the Sheet ID and API Key.';
+                });
+        }
+
         function startDisplayingRows() {
             if (intervalId) {
                 clearInterval(intervalId);
@@ -62,7 +68,6 @@
             intervalId = setInterval(displayRandomRow, 3000);
         }
 
-        // Hàm hiển thị một dòng ngẫu nhiên
         function displayRandomRow() {
             if (data.length === 0) {
                 document.getElementById('output').innerText = 'All rows displayed!';
@@ -70,18 +75,15 @@
                 return;
             }
 
-            // Chọn dòng ngẫu nhiên
             const randomIndex = Math.floor(Math.random() * data.length);
             const row = data[randomIndex];
 
-            // Hiển thị dòng chỉ khi có ít nhất 2 cột
             if (row && row.length >= 2) {
                 document.getElementById('output').innerText = `: ${row[0]} | : ${row[1]}`;
             } else {
                 document.getElementById('output').innerText = 'Invalid row format';
             }
 
-            // Xóa dòng đã hiển thị khỏi danh sách
             data.splice(randomIndex, 1);
         }
     </script>
