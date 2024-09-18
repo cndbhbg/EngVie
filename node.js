@@ -1,11 +1,12 @@
 const { google } = require('googleapis');
-const sheets = google.sheets('v4');
 const fs = require('fs');
 const path = require('path');
 
 // Load client secrets from a local file
-const keyPath = path.join(__dirname, 'credentials.json'); // Path to your credentials file
+const keyPath = path.join(__dirname, 'credentials.json'); // Đọc file credentials.json từ thư mục gốc
 const keys = JSON.parse(fs.readFileSync(keyPath));
+
+// Tạo đối tượng xác thực
 const auth = new google.auth.JWT(
   keys.client_email,
   null,
@@ -14,25 +15,23 @@ const auth = new google.auth.JWT(
   null
 );
 
-// Google Sheet ID and range
-const spreadsheetId = '1p9p8h9v-mQLL4MHm4PC1ofDFlUFxCIm4qm82_h_Vl4s';
-const range = 'Sheet1'; // Replace with your actual sheet name
+// Khai báo thông tin của Google Sheet
+const sheets = google.sheets({ version: 'v4', auth });
+const spreadsheetId = '1p9p8h9v-mQLL4MHm4PC1ofDFlUFxCIm4qm82_h_Vl4s'; // ID của Google Sheet
 
 async function deleteRow(rowIndex) {
   try {
-    await auth.authorize();
+    // Cập nhật phạm vi để xóa dòng
     const request = {
       spreadsheetId: spreadsheetId,
-      range: `${range}!${rowIndex}:${rowIndex}`, // Range specifying the row to delete
-      auth: auth,
+      range: `Sheet1!${rowIndex}:${rowIndex}`, // Chỉ định dòng để xóa
+      valueInputOption: 'RAW',
       resource: {
-        range: `${range}!${rowIndex}:${rowIndex}`,
-        majorDimension: 'ROWS',
-        values: []
+        values: [] // Gửi yêu cầu xóa dòng
       }
     };
 
-    // Delete the row
+    // Gọi API để xóa dòng
     await sheets.spreadsheets.values.clear(request);
     console.log(`Row ${rowIndex} deleted successfully.`);
   } catch (error) {
@@ -40,5 +39,5 @@ async function deleteRow(rowIndex) {
   }
 }
 
-// Example usage
-deleteRow(3); // Delete the third row (adjust as needed)
+// Ví dụ sử dụng
+deleteRow(3); // Xóa dòng thứ ba (cập nhật theo nhu cầu)
