@@ -11,7 +11,7 @@
         #output {
             background-color: #ffffff;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ffffff;
             margin-top: 20px;
         }
         .line1 {
@@ -80,7 +80,11 @@
             if (row && row.length >= 2) {
                 document.getElementById('output').innerHTML = `
                     <div class="line1">${row[0]}</div>
-                    <div class="pronunciation">..</div>
+                    <div class="pronunciation"></div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
                     <div class="line2">${row[1]}</div>
                 `;
             } else {
