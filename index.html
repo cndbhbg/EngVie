@@ -32,13 +32,13 @@
     <h1>Từ vựng Eng - Viet</h1>
     <div id="output">Loading data from Google Sheets...</div>
 
-    <!-- Đoạn script chính -->
     <script>
         // Replace with your Google Sheet ID and API Key
         const sheetId = '1p9p8h9v-mQLL4MHm4PC1ofDFlUFxCIm4qm82_h_Vl4s';
         const apiKey = 'AIzaSyCv1IOw4YfndQUmA6YbfPU6ioMuA796xIw';
 
         let data = [];
+        let currentIndex = 0;
         let intervalId = null;
 
         // Fetch data from Google Sheets API
@@ -65,20 +65,19 @@
             if (intervalId) {
                 clearInterval(intervalId);
             }
-            intervalId = setInterval(displayRandomRow, 3000);
+            intervalId = setInterval(displayRow, 3000);
         }
 
-        function displayRandomRow() {
+        function displayRow() {
             if (data.length === 0) {
-                document.getElementById('output').innerText = 'All rows displayed!';
+                document.getElementById('output').innerText = 'No data available.';
                 clearInterval(intervalId);
                 return;
             }
 
-            const randomIndex = Math.floor(Math.random() * data.length);
-            const row = data[randomIndex];
+            const row = data[currentIndex];
 
-            if (row && row.length >= 2) { // Ensure there are at least 3 columns
+            if (row && row.length >= 2) {
                 document.getElementById('output').innerHTML = `
                     <div class="line1">${row[0]}</div>
                     <div class="pronunciation">..</div>
@@ -88,7 +87,8 @@
                 document.getElementById('output').innerText = 'Invalid row format';
             }
 
-            data.splice(randomIndex, 1);
+            // Update index and loop back to the start if at the end
+            currentIndex = (currentIndex + 1) % data.length;
         }
 
         // Automatically load data when the page loads
