@@ -16,33 +16,22 @@
             font-size: 20px;
         }
     </style>
-    <!-- Thêm thư viện xlsx.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 <body>
     <h1>Random Google Sheets Row Viewer</h1>
-    <input type="text" id="sheetId" placeholder="Enter Google Sheet ID" />
-    <input type="text" id="apiKey" placeholder="Enter API Key" />
-    <button id="loadButton">Load Sheet</button>
-    <div id="output">Please enter Google Sheet ID and API Key, then click Load Sheet.</div>
+    <div id="output">Loading data from Google Sheets...</div>
 
     <!-- Đoạn script chính -->
     <script>
+        // Replace with your Google Sheet ID and API Key
+        const sheetId = '1p9p8h9v-mQLL4MHm4PC1ofDFlUFxCIm4qm82_h_Vl4s';
+        const apiKey = 'AIzaSyCv1IOw4YfndQUmA6YbfPU6ioMuA796xIw';
+
         let data = [];
         let intervalId = null;
 
-        document.getElementById('loadButton').addEventListener('click', function() {
-            const sheetId = document.getElementById('sheetId').value;
-            const apiKey = document.getElementById('apiKey').value;
-
-            if (sheetId && apiKey) {
-                fetchSheetData(sheetId, apiKey);
-            } else {
-                document.getElementById('output').innerText = 'Please provide both Sheet ID and API Key.';
-            }
-        });
-
-        function fetchSheetData(sheetId, apiKey) {
+        // Fetch data from Google Sheets API
+        function fetchSheetData() {
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
 
             fetch(url)
@@ -86,6 +75,9 @@
 
             data.splice(randomIndex, 1);
         }
+
+        // Automatically load data when the page loads
+        document.addEventListener('DOMContentLoaded', fetchSheetData);
     </script>
 </body>
 </html>
