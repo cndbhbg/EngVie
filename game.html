@@ -125,8 +125,9 @@
             const isMatch = (first.type === 'english' && second.type === 'vietnamese' && first.match === second.text) ||
                             (first.type === 'vietnamese' && second.type === 'english' && first.text === second.match);
 
+            const buttons = document.querySelectorAll('.button');
+
             if (isMatch) {
-                const buttons = document.querySelectorAll('.button');
                 buttons.forEach(btn => {
                     if (btn.innerText === first.text || btn.innerText === second.text) {
                         btn.remove(); // Xóa nút nếu đúng cặp
@@ -135,22 +136,16 @@
                 document.getElementById('message').innerText = 'Bạn đã chọn đúng!';
             } else {
                 document.getElementById('message').innerText = 'Sai! Hãy thử lại.';
-                // Reset màu cho nút đã chọn
-                setTimeout(() => {
-                    const buttons = document.querySelectorAll('.button');
-                    buttons.forEach(btn => {
-                        btn.disabled = false; // Bỏ vô hiệu hóa tất cả nút
-                    });
-                    selectedButtons.forEach(selected => {
-                        const selectedButton = Array.from(buttons).find(btn => btn.innerText === selected.text);
-                        if (selectedButton) {
-                            selectedButton.classList.remove('selected'); // Bỏ đánh dấu nút đã chọn
-                        }
-                    });
-                }, 1000); // Thời gian chờ trước khi reset
             }
 
-            selectedButtons = []; // Reset lại danh sách chọn
+            // Reset lại trạng thái
+            setTimeout(() => {
+                buttons.forEach(btn => {
+                    btn.disabled = false; // Bỏ vô hiệu hóa tất cả nút
+                    btn.classList.remove('selected'); // Bỏ đánh dấu nút đã chọn
+                });
+                selectedButtons = []; // Reset lại danh sách chọn
+            }, 1000); // Thời gian chờ trước khi reset
         }
 
         function shuffleArray(array) {
