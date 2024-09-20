@@ -29,6 +29,9 @@
         .button:hover {
             background-color: #0f7bdb;
         }
+        .selected {
+            background-color: #ff9800; /* Màu vàng cho nút được chọn */
+        }
         #message {
             margin-top: 20px;
             font-size: 20px;
@@ -91,13 +94,19 @@
                 const btnElement = document.createElement('button');
                 btnElement.innerText = button.text;
                 btnElement.className = 'button';
-                btnElement.onclick = () => selectButton(button);
+                btnElement.onclick = () => selectButton(btnElement, button);
                 container.appendChild(btnElement);
             });
         }
 
-        function selectButton(button) {
+        function selectButton(btnElement, button) {
+            if (selectedButtons.length === 2) {
+                return; // Không cho chọn thêm nếu đã chọn 2 nút
+            }
+
             selectedButtons.push(button);
+            btnElement.classList.add('selected'); // Đánh dấu nút đã chọn
+
             const buttons = document.querySelectorAll('.button');
             buttons.forEach(btn => {
                 if (btn.innerText === button.text) {
@@ -112,8 +121,11 @@
 
         function checkMatch() {
             const [first, second] = selectedButtons;
-            if ((first.type === 'english' && second.type === 'vietnamese' && first.match === second.text) ||
-                (first.type === 'vietnamese' && second.type === 'english' && first.text === second.match)) {
+
+            const isMatch = (first.type === 'english' && second.type === 'vietnamese' && first.match === second.text) ||
+                            (first.type === 'vietnamese' && second.type === 'english' && first.text === second.match);
+
+            if (isMatch) {
                 const buttons = document.querySelectorAll('.button');
                 buttons.forEach(btn => {
                     if (btn.innerText === first.text || btn.innerText === second.text) {
@@ -124,7 +136,13 @@
             } else {
                 document.getElementById('message').innerText = 'Sai! Hãy thử lại.';
             }
-            selectedButtons = []; // Reset lại danh sách chọn
+
+            // Đánh dấu lại nút đã chọn
+            setTimeout(() => {
+                buttons.forEach(btn => btn.classList.remove('selected'));
+                selectedButtons = []; // Reset lại danh sách chọn
+                buttons.forEach(btn => btn.disabled = false); // Bỏ vô hiệu hóa nút
+            }, 1000); // Thời gian chờ trước khi reset
         }
 
         function shuffleArray(array) {
