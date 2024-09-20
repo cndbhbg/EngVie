@@ -79,27 +79,28 @@
         function renderButtons() {
             const container = document.getElementById('buttonsContainer');
             container.innerHTML = '';
-            const shuffledPairs = shuffleArray([...pairs]);
 
-            shuffledPairs.forEach(pair => {
-                const buttonEng = document.createElement('button');
-                buttonEng.innerText = pair.english;
-                buttonEng.className = 'button';
-                buttonEng.onclick = () => selectButton(pair.english, pair.vietnamese);
-                buttonEng.dataset.type = 'english'; // Thêm thuộc tính để phân biệt loại nút
-                container.appendChild(buttonEng);
+            // Tạo danh sách các nút tiếng Anh và tiếng Việt
+            const buttons = pairs.flatMap(pair => [
+                { text: pair.english, type: 'english' },
+                { text: pair.vietnamese, type: 'vietnamese' }
+            ]);
 
-                const buttonVie = document.createElement('button');
-                buttonVie.innerText = pair.vietnamese;
-                buttonVie.className = 'button';
-                buttonVie.onclick = () => selectButton(pair.vietnamese, pair.english);
-                buttonVie.dataset.type = 'vietnamese'; // Thêm thuộc tính để phân biệt loại nút
-                container.appendChild(buttonVie);
+            // Xáo trộn các nút
+            const shuffledButtons = shuffleArray(buttons);
+
+            // Tạo và hiển thị các nút
+            shuffledButtons.forEach(button => {
+                const btnElement = document.createElement('button');
+                btnElement.innerText = button.text;
+                btnElement.className = 'button';
+                btnElement.onclick = () => selectButton(button.text, button.type);
+                container.appendChild(btnElement);
             });
         }
 
-        function selectButton(selectedText, matchedText) {
-            selectedButtons.push({ selectedText, matchedText });
+        function selectButton(selectedText, buttonType) {
+            selectedButtons.push({ selectedText, buttonType });
             const buttons = document.querySelectorAll('.button');
             buttons.forEach(button => {
                 if (button.innerText === selectedText) {
@@ -114,8 +115,11 @@
 
         function checkMatch() {
             const [first, second] = selectedButtons;
-            if ((first.selectedText === first.matchedText && second.selectedText === second.matchedText) ||
-                (first.selectedText === second.matchedText && second.selectedText === first.matchedText)) {
+            const isMatch = 
+                (first.buttonType === 'english' && second.buttonType === 'vietnamese' && first.selectedText === second.selectedText) ||
+                (first.buttonType === 'vietnamese' && second.buttonType === 'english' && first.selectedText === second.selectedText);
+
+            if (isMatch) {
                 const buttons = document.querySelectorAll('.button');
                 buttons.forEach(button => {
                     if (button.innerText === first.selectedText || button.innerText === second.selectedText) {
