@@ -32,7 +32,7 @@
         .button-container {
             margin-top: 20px;
         }
-        .delete-button {
+        .delete-button, #speedButton {
             padding: 10px 20px;
             font-size: 16px;
             color: #fff;
@@ -40,8 +40,9 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-right: 10px;
         }
-        .delete-button:hover {
+        .delete-button:hover, #speedButton:hover {
             background-color: #b71c1c; /* Darker red on hover */
         }
     </style>
@@ -52,6 +53,7 @@
     <div class="button-container">
         <p></p>
         <button class="delete-button" id="deleteButton">Nhấp chơi chơi</button>
+        <button id="speedButton">Speed</button>
         <p></p>
     </div>
 
@@ -62,6 +64,7 @@
         let data = [];
         let intervalId = null;
         let currentRowIndex = null;
+        let spd = 3000; // Thời gian hiển thị ban đầu
 
         function fetchSheetData() {
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
@@ -86,7 +89,7 @@
             if (intervalId) {
                 clearInterval(intervalId);
             }
-            intervalId = setInterval(displayRandomRow, 3000);
+            intervalId = setInterval(displayRandomRow, spd);
         }
 
         function displayRandomRow() {
@@ -110,27 +113,34 @@
             }
         }
 
-      
-        
+        // Thay đổi tốc độ khi nút "Speed" được nhấn
+        document.getElementById('speedButton').addEventListener('click', () => {
+            if (spd === 3000) {
+                spd = 4000;
+            } else if (spd === 4000) {
+                spd = 5000;
+            } else {
+                spd = 3000;
+            }
+            startDisplayingRows(); // Bắt đầu lại hiển thị với tốc độ mới
+        });
+
         document.addEventListener('DOMContentLoaded', fetchSheetData);
     </script>
-       
-       <style>
+
+    <style>
         body {
-           
             margin: 15px;
         }
         textarea {
-             font-family: Times New Roman;
+            font-family: Times New Roman;
             font-size: 20px;
             width: 40%;
             height: 200px;
         }
     </style>
-    <body>
-    
+
     <textarea id="editor" placeholder="Nhập nội dung ở đây..."></textarea>
     <script src="script.js"></script>
-    </body>
 </body>
 </html>
