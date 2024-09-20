@@ -50,7 +50,7 @@
     <h2>Từ vựng Eng - Viet</h2>
     <div id="output">Loading data from Google Sheets...</div>
     <div class="button-container">
-        <button class="delete-button" id="deleteButton">Delete Current Row</button>
+        <button class="delete-button" id="deleteButton">Nhấp chơi chơi</button>
     </div>
 
     <script>
@@ -108,39 +108,8 @@
             }
         }
 
-        function deleteCurrentRow() {
-            if (currentRowIndex === null || currentRowIndex >= data.length) {
-                document.getElementById('output').innerText = 'No row to delete.';
-                return;
-            }
-
-            fetch('/delete-row', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ rowIndex: currentRowIndex }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    data.splice(currentRowIndex, 1);
-                    if (data.length === 0) {
-                        document.getElementById('output').innerText = 'No more data available.';
-                        clearInterval(intervalId);
-                    } else {
-                        displayRandomRow();
-                    }
-                } else {
-                    document.getElementById('output').innerText = 'Failed to delete row.';
-                }
-            })
-            .catch(error => {
-                document.getElementById('output').innerText = 'Error deleting row.';
-            });
-        }
-
-        document.getElementById('deleteButton').addEventListener('click', deleteCurrentRow);
+      
+        
         document.addEventListener('DOMContentLoaded', fetchSheetData);
     </script>
        
