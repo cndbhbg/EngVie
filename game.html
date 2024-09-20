@@ -66,6 +66,7 @@
         }
 
         function createPairs() {
+            pairs = []; // Reset pairs
             const selectedRows = new Set();
             while (selectedRows.size < 10) {
                 const index = Math.floor(Math.random() * data.length);
@@ -134,6 +135,14 @@
                     }
                 });
                 document.getElementById('message').innerText = 'Bạn đã chọn đúng!';
+
+                // Kiểm tra nếu không còn nút nào
+                if (buttons.length <= 2) {
+                    setTimeout(() => {
+                        document.getElementById('message').innerText = 'Chơi lại!';
+                        createPairs(); // Tạo cặp từ mới
+                    }, 1000); // Thời gian chờ trước khi bắt đầu lại
+                }
             } else {
                 document.getElementById('message').innerText = 'Sai! Hãy thử lại.';
             }
