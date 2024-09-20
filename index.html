@@ -52,13 +52,21 @@
         body.dark {
             background-color: #333;
             color: #ffffff;
-            <textarea id="editor" 
-            background-color : #333;
-            color: #ffffff;
-            ></textarea>
         }
         #output.dark {
             background-color: #444;
+        }
+        textarea {
+            font-family: Times New Roman;
+            font-size: 20px;
+            width: 80%;
+            height: 250px;
+            transition: background-color 0.3s, color 0.3s; /* Thêm hiệu ứng chuyển đổi */
+        }
+        /* Chế độ tối cho textarea */
+        body.dark textarea {
+            background-color: #555; /* Màu nền tối */
+            color: #ffffff; /* Màu chữ sáng */
         }
     </style>
 </head>
@@ -178,7 +186,6 @@
             document.getElementById('output').classList.toggle('dark');
             const themeButton = document.getElementById('themeToggle');
             themeButton.innerText = themeButton.innerText === 'Chuyển sang chế độ tối' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối';
-       
         });
 
         // Thay đổi ngôn ngữ giao diện
@@ -196,19 +203,4 @@
         document.addEventListener('DOMContentLoaded', fetchSheetData);
     </script>
 
-    <style>
-        body {
-            margin: 15px;
-        }
-        textarea {
-            font-family: Times New Roman;
-            font-size: 20px;
-            width: 80%;
-            height: 250px;
-        }
-    </style>
-
-    <textarea id="editor" placeholder="Nhập nội dung ở đây..."></textarea>
-    <script src="script.js"></script>
-</body>
-</html>
+    <textarea
