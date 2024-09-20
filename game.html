@@ -100,8 +100,8 @@
         }
 
         function selectButton(btnElement, button) {
-            if (selectedButtons.length === 2) {
-                return; // Không cho chọn thêm nếu đã chọn 2 nút
+            if (selectedButtons.length === 2 || btnElement.disabled) {
+                return; // Không cho chọn thêm nếu đã chọn 2 nút hoặc nút đã bị vô hiệu hóa
             }
 
             selectedButtons.push(button);
@@ -135,14 +135,22 @@
                 document.getElementById('message').innerText = 'Bạn đã chọn đúng!';
             } else {
                 document.getElementById('message').innerText = 'Sai! Hãy thử lại.';
+                // Reset màu cho nút đã chọn
+                setTimeout(() => {
+                    const buttons = document.querySelectorAll('.button');
+                    buttons.forEach(btn => {
+                        btn.disabled = false; // Bỏ vô hiệu hóa tất cả nút
+                    });
+                    selectedButtons.forEach(selected => {
+                        const selectedButton = Array.from(buttons).find(btn => btn.innerText === selected.text);
+                        if (selectedButton) {
+                            selectedButton.classList.remove('selected'); // Bỏ đánh dấu nút đã chọn
+                        }
+                    });
+                }, 1000); // Thời gian chờ trước khi reset
             }
 
-            // Đánh dấu lại nút đã chọn
-            setTimeout(() => {
-                buttons.forEach(btn => btn.classList.remove('selected'));
-                selectedButtons = []; // Reset lại danh sách chọn
-                buttons.forEach(btn => btn.disabled = false); // Bỏ vô hiệu hóa nút
-            }, 1000); // Thời gian chờ trước khi reset
+            selectedButtons = []; // Reset lại danh sách chọn
         }
 
         function shuffleArray(array) {
