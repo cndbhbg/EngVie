@@ -7,14 +7,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f0f0f0; /* Màu nền ban đầu */
             color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            transition: background-color 0.5s;
+            transition: background-color 0.5s; /* Hiệu ứng chuyển màu nền */
         }
         .button {
             padding: 10px 20px;
@@ -59,6 +59,8 @@
         let pairs = [];
         let selectedButtons = [];
         let score = 0;
+
+        const colors = ['#f0f0f0', '#e0f7fa', '#ffe0b2', '#f1f8e9', '#e1bee7']; // Mảng màu nền
 
         function fetchSheetData() {
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
@@ -147,6 +149,9 @@
                 score += 10; // Cộng điểm
                 document.getElementById('score').innerText = `Điểm: ${score}`;
                 document.getElementById('message').innerText = 'Bạn đã chọn đúng!';
+
+                // Thay đổi màu nền ngẫu nhiên
+                document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
                 // Kiểm tra nếu không còn nút nào
                 if (buttons.length <= 2) {
