@@ -9,9 +9,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffffff; /* Màu nền sáng */
-            color: #000000; /* Màu chữ sáng */
-            transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển đổi */
+            background-color: #ffffff;
+            color: #000000;
+            transition: background-color 0.3s, color 0.3s;
         }
         #output {
             background-color: #ffffff;
@@ -50,11 +50,11 @@
         }
         /* Chế độ tối */
         body.dark {
-            background-color: #333; /* Màu nền tối */
-            color: #ffffff; /* Màu chữ sáng */
+            background-color: #333;
+            color: #ffffff;
         }
         #output.dark {
-            background-color: #444; /* Màu nền tối cho output */
+            background-color: #444;
         }
     </style>
 </head>
@@ -65,7 +65,7 @@
         <p></p>
         <button class="delete-button" id="deleteButton">Nhấp chơi chơi</button>
         <button id="speedButton">Speed 3x</button>
-        <button id="speakButton">Phát âm</button>
+        <button id="speakButton">Speak: Off</button>
         <button id="themeToggle">Chuyển sang chế độ tối</button>
         <select id="languageSelect">
             <option value="en">Tiếng Anh</option>
@@ -82,6 +82,7 @@
         let intervalId = null;
         let currentRowIndex = null;
         let spd = 3000; // Thời gian hiển thị ban đầu
+        let speakOn = false; // Trạng thái phát âm
 
         function fetchSheetData() {
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
@@ -125,8 +126,11 @@
                     <div class="pronunciation">${row[2] || ''}</div>
                     <div class="line2">${row[1]}</div>
                 `;
-                // Lưu từ để phát âm
-                currentWord = row[0];
+                // Nếu speakOn là true, phát âm từ mới
+                if (speakOn) {
+                    const utterance = new SpeechSynthesisUtterance(row[0]);
+                    speechSynthesis.speak(utterance);
+                }
             } else {
                 document.getElementById('output').innerText = 'Invalid row format';
             }
@@ -158,12 +162,10 @@
             document.getElementById('speedButton').innerText = displayText;
         }
 
-        // Phát âm từ
+        // Chuyển đổi trạng thái phát âm
         document.getElementById('speakButton').addEventListener('click', () => {
-            if (currentWord) {
-                const utterance = new SpeechSynthesisUtterance(currentWord);
-                speechSynthesis.speak(utterance);
-            }
+            speakOn = !speakOn; // Đảo ngược trạng thái phát âm
+            document.getElementById('speakButton').innerText = speakOn ? 'Speak: On' : 'Speak: Off';
         });
 
         // Chuyển đổi giữa chế độ tối và ánh sáng
@@ -180,11 +182,9 @@
             if (selectedLanguage === 'vi') {
                 document.querySelector('h3').innerText = 'Từ vựng Eng - Viet';
                 document.getElementById('deleteButton').innerText = 'Nhấp chơi chơi';
-                updateSpeedButtonText(); // Cập nhật lại văn bản nút Speed
             } else {
                 document.querySelector('h3').innerText = 'English - Vietnamese Vocabulary';
                 document.getElementById('deleteButton').innerText = 'Click to play';
-                updateSpeedButtonText(); // Cập nhật lại văn bản nút Speed
             }
         });
 
@@ -198,8 +198,8 @@
         textarea {
             font-family: Times New Roman;
             font-size: 20px;
-            width: 40%;
-            height: 200px;
+            width: 80%;
+            height: 250px;
         }
     </style>
 
