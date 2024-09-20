@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò chơi từ vựng Eng - Việt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0f7bdb;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h2>Trò chơi từ vựng Eng - Việt</h2>
+    <div id="buttonsContainer"></div>
+    <div id="message"></div>
+
+    <script>
+        const sheetId = '1p9p8h9v-mQLL4MHm4PC1ofDFlUFxCIm4qm82_h_Vl4s';
+        const apiKey = 'AIzaSyCv1IOw4YfndQUmA6YbfPU6ioMuA796xIw';
+        let data = [];
+        let pairs = [];
+        let selectedPairs = [];
+        
+        function fetchSheetData() {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(dataJson => {
+                    data = dataJson.values;
+                    createPairs();
+                })
+                .catch(error => {
+                    document.getElementById('message').innerText = 'Error fetching the sheet.';
+                });
+        }
+
+        function createPairs() {
+            const selectedRows = [];
+            while (selectedRows.length < 20) {
+                const index = Math.floor(Math.random() * data.length);
+                if (!selectedRows.includes(index)) {
+                    selectedRows.push(index);
+                    pairs.push({ english: data[index][0], vietnamese: data[index][1] });
+                }
+            }
+            renderButtons();
+        }
+
+        function renderButtons() {
+            const container = document.getElementById('buttonsContainer');
+            container.innerHTML = '';
+            pairs.forEach(pair => {
+                const button = document.createElement('button');
+                button.innerText = pair.english;
+                button.className = 'button';
+                button.onclick = () => checkPair(pair);
+                container.appendChild(button);
+            });
+        }
+
+        function checkPair(selectedPair) {
+            const index = pairs.indexOf(selectedPair);
+            if (index > -1) {
+                pairs.splice(index, 1); // Remove the selected pair
+                document.getElementById('message').innerText = 'Bạn đã chọn đúng!';
+                renderButtons();
+                if (pairs.length === 0) {
+                    document.getElementById('message').innerText = 'Chúc mừng! Bạn đã hoàn thành!';
+                    setTimeout(() => {
+                        pairs = [];
+                        createPairs();
+                    }, 2000);
+                }
+            } else {
+                document.getElementById('message').innerText = 'Sai! Hãy thử lại.';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchSheetData);
+    </script>
+</body>
+</html>
