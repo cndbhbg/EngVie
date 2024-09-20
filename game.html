@@ -80,31 +80,28 @@
             const container = document.getElementById('buttonsContainer');
             container.innerHTML = '';
 
-            // Tạo danh sách các nút tiếng Anh và tiếng Việt
             const buttons = pairs.flatMap(pair => [
-                { text: pair.english, type: 'english' },
-                { text: pair.vietnamese, type: 'vietnamese' }
+                { text: pair.english, type: 'english', match: pair.vietnamese },
+                { text: pair.vietnamese, type: 'vietnamese', match: pair.english }
             ]);
 
-            // Xáo trộn các nút
             const shuffledButtons = shuffleArray(buttons);
 
-            // Tạo và hiển thị các nút
             shuffledButtons.forEach(button => {
                 const btnElement = document.createElement('button');
                 btnElement.innerText = button.text;
                 btnElement.className = 'button';
-                btnElement.onclick = () => selectButton(button.text, button.type);
+                btnElement.onclick = () => selectButton(button);
                 container.appendChild(btnElement);
             });
         }
 
-        function selectButton(selectedText, buttonType) {
-            selectedButtons.push({ selectedText, buttonType });
+        function selectButton(button) {
+            selectedButtons.push(button);
             const buttons = document.querySelectorAll('.button');
-            buttons.forEach(button => {
-                if (button.innerText === selectedText) {
-                    button.disabled = true; // Vô hiệu hóa nút đã chọn
+            buttons.forEach(btn => {
+                if (btn.innerText === button.text) {
+                    btn.disabled = true; // Vô hiệu hóa nút đã chọn
                 }
             });
 
@@ -115,15 +112,12 @@
 
         function checkMatch() {
             const [first, second] = selectedButtons;
-            const isMatch = 
-                (first.buttonType === 'english' && second.buttonType === 'vietnamese' && first.selectedText === second.selectedText) ||
-                (first.buttonType === 'vietnamese' && second.buttonType === 'english' && first.selectedText === second.selectedText);
-
-            if (isMatch) {
+            if ((first.type === 'english' && second.type === 'vietnamese' && first.match === second.text) ||
+                (first.type === 'vietnamese' && second.type === 'english' && first.text === second.match)) {
                 const buttons = document.querySelectorAll('.button');
-                buttons.forEach(button => {
-                    if (button.innerText === first.selectedText || button.innerText === second.selectedText) {
-                        button.remove(); // Xóa nút nếu đúng cặp
+                buttons.forEach(btn => {
+                    if (btn.innerText === first.text || btn.innerText === second.text) {
+                        btn.remove(); // Xóa nút nếu đúng cặp
                     }
                 });
                 document.getElementById('message').innerText = 'Bạn đã chọn đúng!';
