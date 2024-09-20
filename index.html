@@ -53,7 +53,7 @@
     <div class="button-container">
         <p></p>
         <button class="delete-button" id="deleteButton">Nhấp chơi chơi</button>
-        <button id="speedButton">Speed + spd</button>
+        <button id="speedButton">Speed 3x</button>
         <p></p>
     </div>
 
@@ -122,8 +122,22 @@
             } else {
                 spd = 3000;
             }
+            updateSpeedButtonText(); // Cập nhật văn bản cho nút "Speed"
             startDisplayingRows(); // Bắt đầu lại hiển thị với tốc độ mới
         });
+
+        // Cập nhật văn bản cho nút "Speed"
+        function updateSpeedButtonText() {
+            let displayText = 'Speed ';
+            if (spd === 3000) {
+                displayText += ' 3.x';
+            } else if (spd === 4000) {
+                displayText += ' 2.x';
+            } else if (spd === 5000) {
+                displayText += ' 1.x';
+            }
+            document.getElementById('speedButton').innerText = displayText;
+        }
 
         document.addEventListener('DOMContentLoaded', fetchSheetData);
     </script>
