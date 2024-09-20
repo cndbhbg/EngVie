@@ -52,6 +52,10 @@
         body.dark {
             background-color: #333;
             color: #ffffff;
+            <textarea id="editor" 
+            background-color : #333;
+            color: #ffffff;
+            ></textarea>
         }
         #output.dark {
             background-color: #444;
@@ -174,6 +178,7 @@
             document.getElementById('output').classList.toggle('dark');
             const themeButton = document.getElementById('themeToggle');
             themeButton.innerText = themeButton.innerText === 'Chuyển sang chế độ tối' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối';
+       
         });
 
         // Thay đổi ngôn ngữ giao diện
