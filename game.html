@@ -42,6 +42,19 @@
             font-size: 22px;
             margin-top: 20px;
         }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+        #englishButtons, #vietnameseButtons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 45%; /* Chiều rộng mỗi container */
+        }
     </style>
     <audio id="correctSound" src="correct.mp3"></audio>
     <audio id="wrongSound" src="wrong.mp3"></audio>
@@ -60,7 +73,10 @@
         </select>
     </div>
     <div id="score">Điểm: 0</div>
-    <div id="buttonsContainer"></div>
+    <div class="container">
+        <div id="englishButtons"></div>
+        <div id="vietnameseButtons"></div>
+    </div>
     <div id="message"></div>
 
     <script>
@@ -109,22 +125,23 @@
         }
 
         function renderButtons() {
-            const container = document.getElementById('buttonsContainer');
-            container.innerHTML = '';
+            const englishContainer = document.getElementById('englishButtons');
+            const vietnameseContainer = document.getElementById('vietnameseButtons');
+            englishContainer.innerHTML = '';
+            vietnameseContainer.innerHTML = '';
 
-            const buttons = pairs.flatMap(pair => [
-                { text: pair.english, type: 'english', match: pair.vietnamese },
-                { text: pair.vietnamese, type: 'vietnamese', match: pair.english }
-            ]);
+            pairs.forEach(pair => {
+                const englishButton = document.createElement('button');
+                englishButton.innerText = pair.english;
+                englishButton.className = 'button';
+                englishButton.onclick = () => selectButton(englishButton, { text: pair.english, type: 'english', match: pair.vietnamese });
+                englishContainer.appendChild(englishButton);
 
-            const shuffledButtons = shuffleArray(buttons);
-
-            shuffledButtons.forEach(button => {
-                const btnElement = document.createElement('button');
-                btnElement.innerText = button.text;
-                btnElement.className = 'button';
-                btnElement.onclick = () => selectButton(btnElement, button);
-                container.appendChild(btnElement);
+                const vietnameseButton = document.createElement('button');
+                vietnameseButton.innerText = pair.vietnamese;
+                vietnameseButton.className = 'button';
+                vietnameseButton.onclick = () => selectButton(vietnameseButton, { text: pair.vietnamese, type: 'vietnamese', match: pair.english });
+                vietnameseContainer.appendChild(vietnameseButton);
             });
         }
 
@@ -160,7 +177,7 @@
                 document.getElementById('correctSound').play();
                 buttons.forEach(btn => {
                     if (btn.innerText === first.text || btn.innerText === second.text) {
-                        btn.remove(); // Xóa nút nếu đúng cặp
+                        btn.style.display = 'none'; // Ẩn nút nếu đúng cặp
                     }
                 });
                 score += 10; // Cộng điểm
@@ -171,7 +188,7 @@
                 document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
                 // Kiểm tra nếu không còn nút nào
-                if (buttons.length <= 2) {
+                if (Array.from(buttons).every(btn => btn.style.display === 'none')) {
                     setTimeout(() => {
                         document.getElementById('message').innerText = 'Chơi lại!';
                         createPairs(); // Tạo cặp từ mới
