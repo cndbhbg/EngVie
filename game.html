@@ -48,6 +48,17 @@
 </head>
 <body>
     <h2>Trò chơi từ vựng Eng - Việt</h2>
+    <div>
+        <label for="pairCount">Chọn số cặp từ: </label>
+        <select id="pairCount" onchange="setPairCount()">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+        </select>
+    </div>
     <div id="score">Điểm: 0</div>
     <div id="buttonsContainer"></div>
     <div id="message"></div>
@@ -59,6 +70,7 @@
         let pairs = [];
         let selectedButtons = [];
         let score = 0;
+        let pairCount = 10; // Số cặp mặc định
 
         const colors = ['#f0f0f0', '#e0f7fa', '#ffe0b2', '#f1f8e9', '#e1bee7']; // Mảng màu nền
 
@@ -76,10 +88,15 @@
                 });
         }
 
+        function setPairCount() {
+            pairCount = parseInt(document.getElementById('pairCount').value);
+            createPairs();
+        }
+
         function createPairs() {
             pairs = []; // Reset pairs
             const selectedRows = new Set();
-            while (selectedRows.size < 10) {
+            while (selectedRows.size < pairCount) {
                 const index = Math.floor(Math.random() * data.length);
                 selectedRows.add(index);
             }
