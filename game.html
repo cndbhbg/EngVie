@@ -7,29 +7,28 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Màu nền ban đầu */
-            color: #333;
+            background-color: #000; /* Màu nền cố định là đen */
+            color: #fff; /* Màu chữ cố định là trắng */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            transition: background-color 0.5s; /* Hiệu ứng chuyển màu nền */
-            /* overflow: hidden;  Ngăn cuộn */
+            overflow: hidden; /* Ngăn cuộn */
         }
         .button {
-            padding: 8px 12px; /* Điều chỉnh padding */
-            font-size: 14px; /* Kích thước chữ nhỏ hơn */
-            margin: 5px; /* Giảm khoảng cách giữa các nút */
+            padding: 8px 12px;
+            font-size: 14px;
+            margin: 5px;
             cursor: pointer;
             background-color: #1a73e8;
             color: white;
             border: none;
             border-radius: 5px;
             transition: background-color 0.3s;
-            flex: 1 0 21%; /* Cho phép các nút co giãn */
-            max-width: 140px; /* Chiều rộng tối đa cho các nút */
-            box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước tổng thể */
+            flex: 1 0 21%;
+            max-width: 140px;
+            box-sizing: border-box;
         }
         .button:hover {
             background-color: #0f7bdb;
@@ -48,18 +47,18 @@
         }
         .container {
             display: flex;
-            justify-content: space-between; /* Phân bố đều các nhóm */
+            justify-content: space-between;
             width: 100%;
-            max-width: 48%vw; /* Giới hạn chiều rộng */
+            max-width: 48vw; /* Giới hạn chiều rộng */
             margin: 15px 0;
         }
         #englishButtons, #vietnameseButtons {
             display: flex;
-            flex-wrap: wrap; /* Cho phép các nút xuống dòng nếu cần */
-            align-items: flex-start; /* Căn trên cùng */
-            width: 90%; /* Chiều rộng mỗi container */
-            height: auto; /* Chiều cao tự động */
-            overflow: hidden; /* Ngăn cuộn */
+            flex-wrap: wrap;
+            align-items: flex-start;
+            width: 90%;
+            height: auto;
+            overflow: hidden;
         }
     </style>
     <audio id="correctSound" src="correct.mp3"></audio>
@@ -68,7 +67,7 @@
 <body>
     <h2>Trò chơi từ vựng Eng - Việt</h2>
     <div>
-        <label for="pairCount">Chọn số cặp từ: </label>
+        <label for="pairCount" style="color: white;">Chọn số cặp từ: </label>
         <select id="pairCount" onchange="setPairCount()">
             <option value="10">10</option>
             <option value="20">20</option>
@@ -93,8 +92,6 @@
         let selectedButtons = [];
         let score = 0;
         let pairCount = 10; // Số cặp mặc định
-
-        const colors = ['#f0f0f0', '#e0f7fa', '#ffe0b2', '#f1f8e9', '#e1bee7']; // Mảng màu nền
 
         function fetchSheetData() {
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
@@ -195,9 +192,6 @@
                 score += 10; // Cộng điểm
                 document.getElementById('score').innerText = `Điểm: ${score}`;
                 document.getElementById('message').innerText = 'Bạn đã chọn đúng!';
-
-                // Thay đổi màu nền ngẫu nhiên
-                document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
                 // Kiểm tra nếu không còn nút nào
                 if (Array.from(buttons).every(btn => btn.style.display === 'none')) {
