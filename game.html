@@ -15,17 +15,20 @@
             justify-content: center;
             height: 100vh;
             transition: background-color 0.5s; /* Hiệu ứng chuyển màu nền */
+            overflow: hidden; /* Ngăn cuộn */
         }
         .button {
-            padding: 10px 20px;
-            font-size: 18px;
-            margin: 10px;
+            padding: 10px 5px; /* Điều chỉnh padding */
+            font-size: 14px; /* Kích thước chữ nhỏ hơn */
+            margin: 5px; /* Giảm khoảng cách giữa các nút */
             cursor: pointer;
             background-color: #1a73e8;
             color: white;
             border: none;
             border-radius: 5px;
             transition: background-color 0.3s;
+            flex: 1; /* Cho phép các nút co giãn để sử dụng không gian */
+            max-width: 120px; /* Chiều rộng tối đa cho các nút */
         }
         .button:hover {
             background-color: #0f7bdb;
@@ -44,10 +47,11 @@
         }
         .container {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around; /* Phân bố đều các nhóm */
             width: 100%;
             max-width: 600px;
             margin: 20px 0;
+            flex-wrap: wrap; /* Cho phép các nút xuống hàng */
         }
         #englishButtons, #vietnameseButtons {
             display: flex;
