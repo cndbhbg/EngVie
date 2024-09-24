@@ -48,7 +48,7 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            max-width: 48vw; /* Giới hạn chiều rộng */
+            max-width: 48%vw; /* Giới hạn chiều rộng */
             margin: 15px 0;
         }
         #englishButtons, #vietnameseButtons {
@@ -76,7 +76,7 @@
             <option value="60">60</option>
         </select>
     </div>
-    <div id="score">Điểm: 0</div>
+    <div id="score">Tỉ lệ đúng: 0%</div>
     <div class="container">
         <div id="englishButtons"></div>
         <div id="vietnameseButtons"></div>
@@ -188,7 +188,7 @@
                 document.getElementById('correctSound').play();
                 correctCount++; // Tăng số lần chọn đúng
                 score = Math.round((correctCount / totalCount) * 100); // Tính điểm theo tỷ lệ %
-                document.getElementById('score').innerText = `Điểm: ${score}`;
+                document.getElementById('score').innerText = `Tỉ lệ đúng: ${score} %`;
                 document.getElementById('message').innerText = 'Bạn đã chọn đúng!';
 
                 buttons.forEach(btn => {
@@ -206,7 +206,7 @@
             } else {
                 document.getElementById('wrongSound').play();
                 score = Math.max(0, score - 1); // Giảm điểm nếu sai, không cho điểm âm
-                document.getElementById('score').innerText = `Điểm: ${score}`;
+                document.getElementById('score').innerText = `Tỉ lệ đúng: ${score} %`;
                 document.getElementById('message').innerText = 'Sai! Hãy thử lại.';
             }
 
